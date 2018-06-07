@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% set header = "Person Center" %}
+
+{% block content_center %}
+
+<div>
+<h2 class=" h2 text-center">{{ header }}</h2>
+</div>
+
+<form method="post" class="form-horizontal">
+{{ form.hidden_tag() }}
+<div class="form-group">
+    {{ form.email.label(class="control-label col-sm-3") }}
+     <div class="col-sm-9">
+{#     col-sm-4#}
+         {{ form.email(size=20, class="form-control", value = referrer_dict['email']) }}
+         {% for error in form.errors.email %}
+             <span style="color:red;">* {{ error }}</span>
+         {% endfor %}
+     </div>
+</div>
+<div class="form-group">
+    {{ form.birth.label(class="control-label col-sm-3") }}
+     <div class="col-sm-9">
+         {{ form.birth(size=20, class="form-control", type="datetime", value=referrer_dict['birthday']) }}
+         {% for error in form.errors.birth %}
+             <span style="color:red;">* {{ error }}</span>
+         {% endfor %}
+     </div>
+</div>
+<div class="form-group">
+    {{ form.brief_description.label(class="control-label col-sm-3") }}
+     <div class="col-sm-9">
+         {{ form.brief_description(size=20, class="form-control", value=referrer_dict['description']) }}
+         {% for error in form.errors.brief_description %}
+             <span style="color:red;">* {{ error }}</span>
+         {% endfor %}
+     </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-3 col-xs-6">
+        <a class="btn btn-success form-control" href="{{ url_for('sso.edit', user_name=referrer_dict['name'] )}}" >修改密码</a>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3 col-xs-6">
+        {% if current_user.is_administrator %}
+        <a class="btn btn-success form-control" href="{{ url_for('sso.permission', user_name=referrer_dict['name'] )}}" >权限管理</a>
+        {% endif %}
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-3 col-xs-6">
+          <a class="btn btn-success form-control" href="{{ url_for('sso.logout',user_name=referrer_dict['name'] ) }}" >注销&退出</a>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+          <a class="btn btn-success form-control" href="{{home_url}}" >返回主页</a>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+           <input type="submit" value="保存" class="btn btn-success form-control" >
+    </div>
+</div>
+</form>
+
+{% endblock %}

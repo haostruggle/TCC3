@@ -1,0 +1,17 @@
+<div class="footer panel-footer navbar-fixed-bottom footer-menu">
+    <div class="container ">
+        <footer >
+            <div class="text-center">
+                {% block footer_center %}
+                {% autoescape false %}
+                {{ _('Powered by %(flask)s', flask='<a href="%s">Flask</a>' % 'http://dormousehole.readthedocs.org/en/latest/index.html') }}
+                {% endautoescape %}
+                |
+                {% autoescape false %}
+                {{ _('Copyright &copy; 2015 %(author)s', author= '<a href="mailto:vito2015@live.com">Vito</a>') }}
+                {% endautoescape %}
+                {% endblock %}
+            </div>
+        </footer>
+    </div>
+</div>

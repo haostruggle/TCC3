@@ -1,0 +1,12 @@
+{% macro space(count) %}
+{% for i in range(10) %}&nbsp;{% endfor %}
+{% endmacro %}
+{% macro static_css(filename, cdn='css') %}
+<link rel="stylesheet" href="{{ url_for('static', filename=cdn+'/'+filename) }}">
+{% endmacro %}
+{% macro static_js(filename, cdn='js') %}
+<script src="{{ url_for('static', filename=cdn+'/'+filename) }}"></script>
+{% endmacro %}
+{% macro static_favicon(filename) %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/'+filename) }}" />
+{% endmacro %}

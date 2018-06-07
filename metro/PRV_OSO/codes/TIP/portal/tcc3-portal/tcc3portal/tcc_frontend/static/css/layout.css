@@ -1,0 +1,10 @@
+@charset "utf-8";
+body{
+	margin: 0;
+	/*background-color: #FFFFFF;*/
+	background-image: url('../img/linemap/linemap_bg_long.png');
+	background-size: auto 100%;
+	overflow: hidden;	
+}
+
+

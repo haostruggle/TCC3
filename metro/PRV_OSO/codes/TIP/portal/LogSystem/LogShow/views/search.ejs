@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Log</title>
+    <meta http-equiv="refresh" content="60">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+
+
+<form>
+    <a href=http://127.0.0.1:9000/">TCC3 PORTAL</a>
+    <a href=/index >»ØÊ×Ò³</a>
+    <a href=/errorlog>ERROR LOG</a>
+    <a href=/warninglog>WARNING LOG</a>
+</form>
+
+
+<form action="/search" method="get" >
+    <!--onsubmit="return checkForm(this)"-->
+    <!--ËÑË÷-->
+    <input type="text" name="searchContent" />
+    <input type="datetime-local" name="dateContent1" />
+    <input type="datetime-local" name="dateContent2" />
+    <input type="submit" value="Submit" />
+</form>
+
+<ul>
+    <% for(i=0; i< name.length; i++) {%>
+    <li><a><%= name[i]%></a></li>
+    <% } %>
+    <% if (i == 0) { %>
+        <p><h2> No data,please check your input </h2></p>
+    <% } %>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+{% extends "layouts/base.html" %}
+{% import "macros/utils.html" as utils_local %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div id="sidebar" > <!--class=" col-md-2 col-md-5 col-md-2 "-->
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <select id="line_no" class="selectpicker show-tick form-control" data-live-search="false">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="94">94</option>
+                            <option value="95">95</option>
+                            <option value="96">96</option>
+                            <option value="97">97</option>
+                            <option value="98">98</option>
+{#                            <optgroup label="Unusable" disabled>#}
+{#                                #}
+{#                            </optgroup>#}
+                        </select>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div id="datepicker-container" >
+                            <div class="input-group date" >
+                                <input id="datepicker" type="text" class="form-control" value="07/02/2014" data-provide="datepicker">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+                            <script>
+                                $('#datepicker-container .input-group.date').datepicker({
+                                    autoclose: false,
+                                    todayBtn: "linked",
+                                    format: "mm/dd/yyyy",
+                                    orientation: "bottom auto",
+                                    todayHighlight: "true"
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <select id="line_type" class="selectpicker show-tick form-control">
+                            <option value="plan">Plan</option>
+                            <option value="real">Real</option>
+                            <option value="plan&real">Both</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default">Reset</button>
+                            <button id="btn_confirm" type="button" class="btn btn-default">Confirm</button>
+            {#                onclick="getSchedules($('#train_graph'),'20140702','01','plan')"#}
+                            <script>
+                                var dac_url = "{{ get_app_config('DAC_HOST_URL')+ get_app_config('DAC_API_SCHEDULES_URL') }}";
+
+                                $('#btn_confirm').click(function () {
+                                    var dp = $('#datepicker')[0];
+                                    var graph_date = new Date(dp.value);
+                                    var str_date =  date_to_string(graph_date);
+                                    var str_line_no = $('#line_no.selectpicker')[0].value;
+                                    var str_line_type = $('#line_type.selectpicker')[0].value;
+                                    console.log('date:'+str_date+',line:'+str_line_no+',type:'+str_line_type);
+                                    getSchedules(dac_url ,$('#train_graph'),str_date, str_line_no,str_line_type)
+                                });
+
+                                function date_to_string(date){
+                                    var dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate().toString();
+                                    var mm = (date.getMonth()+1) < 10 ? "0" + (date.getMonth()+1) : (date.getMonth()+1).toString();
+                                    var yyyy = date.getFullYear().toString();
+                                    return yyyy + mm + dd;
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+		    </div>
+        </div>
+        <div id="train_graph" >
+{#            style="height: 400px; background-color: green"#}
+{#            class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2"#}
+        </div>
+    <script>
+        $('#sidebar').BootSideMenu({
+            side:"left", // left or right
+            autoClose:false // auto close when page loads
+        });
+    </script>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    {{ utils.static_css("train_graph.css") }}
+
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+{#    {{ utils.static_js("jquery/jquery-1.11.3.min.js") }}#}
+{#    {{ utils.static_js("d3/d3.js") }}#}
+
+{% endblock %}

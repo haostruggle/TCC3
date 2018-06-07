@@ -1,0 +1,101 @@
+svg {
+    font: 10px sans-serif;
+}
+
+.axis path {
+    display: none;
+}
+
+.axis line {
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.station line {
+    stroke: #ddd;
+    stroke-dasharray: 1,1;
+    shape-rendering: crispEdges;
+}
+
+.station text {
+    text-anchor: end;
+}
+
+.train path {
+    fill: none;
+    stroke-width: 1px;
+}
+
+.train circle {
+    stroke: #fff;
+}
+
+/*.train .N path { stroke: rgb(34,34,34); }*/
+/*.train .N circle { fill: rgb(34,34,34); }*/
+
+.train .REAL path { stroke: rgb(21, 164, 0); }
+.train .REAL circle { fill: rgb(21, 164, 0); }
+
+.train .PLAN path { stroke: rgb(192,62,29);  }
+.train .PLAN circle { fill: rgb(192,62,29); }
+
+.train path:hover {
+    stroke-width: 2px;
+}
+
+.selected{
+    opacity: 1;
+}
+.selected path {
+    stroke-width: 2px;
+}
+.unselected{
+   opacity: 0.3;
+}
+.unselected path{
+    stroke-width: 1px;
+}
+
+
+.svg_tooltip{
+    position: absolute;
+    /*width: auto;*/
+    /*height: auto;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #343434;
+    color: #a1a1a1;
+    z-index: 10;
+    font-size: 1em;
+    padding: 8px 14px;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.svg_time_line line {
+    stroke: #000;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+    font-weight: 700;
+}
+.svg_time_line text {
+    text-anchor: end;
+}
+
+.no_data_tip{
+    background-color: #ec971f;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 10;
+    font-size: 3em;
+    margin: 20px;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}

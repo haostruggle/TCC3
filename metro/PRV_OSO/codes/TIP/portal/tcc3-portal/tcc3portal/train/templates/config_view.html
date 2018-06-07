@@ -1,0 +1,115 @@
+{% extends "layouts/base.html" %}
+{% import "macros/utils.html" as utils_local %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <div>
+            <h2 class="text-center">{{ _("Marey diagram's line config upload.") }}</h2>
+            {% for message in get_flashed_messages() %}
+                {% if message.status == 200 %}
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message.message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {% if message.message %}
+                            {{ message.message }}
+                        {% else %}
+                            {{ message }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form method="post" class="form-horizontal" role="form"
+              action="{{ url_for('config.upload_line') }}"
+                enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <div class="form-group ">
+{#            {{ form.line_no.label(class="control-label") }}#}
+            <div class="col-sm-3">
+                {{ form.line_no(size=20, class="selectpicker show-tick form-control") }}
+                {% for error in form.errors.line_no %}
+                 <span style="color:red;">* {{ error }}</span>
+                {% endfor %}
+            </div>
+{#            {{ form.config_file.label(class="control-label") }}#}
+            <div class="col-sm-6">
+                {{ form.config_file(size=20, class="form-control ", accept=".csv") }}
+                {% for error in form.errors.config_file %}
+                 <span style="color:red;">* {{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="col-sm-3">
+                <input type="submit" value="{{ _('Upload') }}" class="btn btn-success form-control" >
+            </div>
+        </div>
+    </form>
+
+    <ul class="pagination">
+        <li class="disabled"><a>Lines:</a></li>
+        {% for ln, name in totail_lines|sort %}
+            {% if ln in data.keys() %}
+            <li>
+                {% set d = data[ln] %}
+                <a href="#" onclick="getDataByLine('{{ ln }}',{{ d }})">{{ name }}</a>
+    {#            <a class="glyphicon-a-remove" href="#"><span class="glyphicon glyphicon-remove "></span></a>#}
+            </li>
+            {% else %}
+            <li class="disabled"><a>{{ name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <table id="line_table" class="table table-hover">
+        <thead>
+            <th class="col-sm-1">#</th>
+            <th class="col-sm-2">Line No</th>
+            <th class="col-sm-2">Seq</th>
+            <th class="col-sm-2">Station Id</th>
+            <th class="col-sm-2">Station Name</th>
+            <th class="col-sm-2">Distance</th>
+            <th class="col-sm-2">Area</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        function getDataByLine(ln, d){
+            var body = $('#line_table tbody');
+            body.empty();
+            for(var idx in d){
+                var stn = d[idx];
+                body.append("<tr>");
+                var row = $('#line_table tbody tr:last');
+                row.append("<td>" + (Number(idx)+1) + "</td>");
+                row.append("<td>" + ln + "</td>");
+                row.append("<td>" + stn.seq + "</td>");
+                row.append("<td>" + stn.stn_id + "</td>");
+                row.append("<td>" + stn.stn_name + "</td>");
+                row.append("<td>" + stn.distance + "</td>");
+                row.append("<td>" + stn.area + "</td>");
+            }
+        }
+
+        $(function(){
+{#            $('select.selectpicker option').before().prepend("Line: ");#}
+{#            $(".pagination li a[href='#']")#}
+{#                    .hover(function(){#}
+{#                            console.log($(this).text())#}
+{##}
+{#                        },function(){#}
+{#                            console.log($(this).text()+'out')#}
+{#                        });#}
+
+            $(".pagination li a[href='#'][class!='glyphicon-a-remove']:first").click();
+        });
+    </script>
+    </div>
+</div>
+{% endblock %}
