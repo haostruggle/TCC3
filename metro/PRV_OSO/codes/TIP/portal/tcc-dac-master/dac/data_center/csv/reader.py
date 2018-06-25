@@ -71,7 +71,7 @@ class LineConfigCSVReader(CSVReader, MongodbWriter):
         if 'line_no' not in self.data_frame.columns:
             self.data_frame['line_no'] = self.line_no
 
-    def to_mongodb(self, database=None):#´æÈëmongodb
+    def to_mongodb(self, database=None):#ï¿½ï¿½ï¿½ï¿½mongodb
         self.init_db_collection(db=database or db, collection=self.__collection__)
 
         # collection = db[self.__collection__]

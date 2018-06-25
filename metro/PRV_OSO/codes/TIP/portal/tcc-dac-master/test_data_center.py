@@ -44,7 +44,7 @@ class CSVTimeGenMetaclass(type):
 def test_section():
     from dac.data_center.database import _connect_mongo
     from dac.data_center.database.section import SectionDataGenerator
-    conn, db = _connect_mongo('192.168.1.99', 27017, database='test')
+    conn, db = _connect_mongo('127.0.0.1', 27017, database='test')
     SectionDataGenerator.__reader__.init_db(conn)
     SectionDataGenerator.__reader__.init_db(db)
     sd = SectionDataGenerator.get_sections_data('01', '20140702')

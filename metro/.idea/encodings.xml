@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/PRV_OSO/codes/TIP/portal/tcc-dac-master/dac/static/schedules/LINE01_PLAN_20140702.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/PRV_OSO/codes/TIP/portal/tcc-dac-master/dac/static/schedules/LINE01_REAL_20140702.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/PRV_OSO/codes/TIP/portal/tcc-dac-master/dac_static_test/LINE01_STN_CFG.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/PRV_OSO/codes/TIP/portal/tcc3-portal/tcc3portal/train/static/js/train.js" charset="GBK" />
+  </component>
+</project>

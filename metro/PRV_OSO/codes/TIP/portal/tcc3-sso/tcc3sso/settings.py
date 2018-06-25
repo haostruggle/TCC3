@@ -20,7 +20,7 @@ CURRENT_API = {
     'version': 'v1.0',
 }
 
-SSO_IP = 'localhost'
+SSO_IP = '127.0.0.1'
 SSO_PORT = 'http://' + SSO_IP + ':9000'
 
 REFERRER_NAME = 'url'

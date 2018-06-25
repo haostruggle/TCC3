@@ -50,13 +50,14 @@ class DateScheduleList(Resource, ScheduleMixin):#post车辆信息
         url: /api/v1.0/schedules/20140702/01/plan?callback=?
         """
         args = post_parser.parse_args()
+        print('args:', args)
         file = args.file
         file_orgin_name = args.fname
         file_name = 'TEMP_{}_{}-{}.csv'.format(plan_or_real, date, file_orgin_name)  # TEMP_PLAN_20150101.csv
 
         upload_dir = current_app.config['LINE_DATA_UPLOADS_DEFAULT_URL'] or 'dac/static/schedules/'
         full_file_name = os.path.join(upload_dir, file_name)
-        print(full_file_name)
+        print('full_file_name:', full_file_name)
         try:
             f = open(full_file_name, mode='w')#读取文件内部数据
             f.write(file)
@@ -123,17 +124,22 @@ class ScheduleList(Resource, ScheduleMixin):
         url: /api/v1.0/schedules/20140702/01/plan?callback=?
         """
         try:
+            print('this?')
             self.if_not_exists(line_no, date, plan_or_real)
+            print('else this?')
             raw_data_all = data_cache.get_raw_data(line_no, date, plan_or_real)
         except NoDataError as e:
-            print(e)
+            # print(e)
             raw_data_all = {}
 
         results_schedules = dict()
+        print('raw_data_all: ', raw_data_all)
         for key, raw_data in raw_data_all:
             schedule_type = ScheduleCache.get_schedule_type(key).lower()
             results_schedules[schedule_type] = raw_data
 
+
+        print('results_schedules: ', results_schedules)
         return make_json_response(200, **results_schedules), 200
 
 

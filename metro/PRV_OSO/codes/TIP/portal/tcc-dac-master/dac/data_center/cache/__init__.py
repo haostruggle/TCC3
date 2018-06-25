@@ -13,7 +13,7 @@ from redis import StrictRedis
 
 class RedisClient(object):
     def __init__(self, app=None):
-        self.redis_host = '192.168.222.130'
+        self.redis_host = '127.0.0.1'
         self.redis_port = '6379'
         self.redis_password = None
         self._strict_redis = None

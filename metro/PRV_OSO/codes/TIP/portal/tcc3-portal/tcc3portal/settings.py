@@ -19,7 +19,7 @@ SECRET_KEY = "YOU CAN NOT GUESS IT IT IT IT."
 
 MONGODB_SETTINGS = {
     'db': 'local',
-    'host': 'localhost',
+    'host': '127.0.0.1',
     'port': 27017
 }
 

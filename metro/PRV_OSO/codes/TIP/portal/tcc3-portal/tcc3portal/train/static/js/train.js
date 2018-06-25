@@ -9,6 +9,7 @@ function getSchedules(dac_url, parent, date,lineNo,type){
         url: url,
         //url:"http://192.168.1.125:8080/api/v1.0/schedules/"+date+"/"+lineNo+"/"+type+"/1023&1024?callback=?",
         success: function(json_data){
+            console.log('json_data:', json_data)
             draw(parent, date, json_data)
         },
         error: function() {

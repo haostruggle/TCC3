@@ -52,8 +52,11 @@ class ScheduleMixin(object):
                 # TODO if not exists, need try loading from mongodb than set into redis. -DONE
                 schedule_reader = ScheduleMongodbReader()
                 schedule_type = ScheduleCache.get_schedule_type(key)
+                print('schedule_type: ', schedule_type)
                 try:
+                    print('xxxxxx')
                     schedule_reader.load_frame(line_no, date, schedule_type)
+                    print('yyyyyyy')
                 except NoDataError:
                     print('no data in db. KEY:{}'.format(key))
                     return

@@ -36,11 +36,14 @@ class LineConfigMongodbReader(MongodbReader):
     def load_frame(self, line_no=None):
         """Load data frame, if no data Raise NoDataError"""
         if line_no:
+            print('line_no: ', line_no)
             self.data_frame = self.__load_frame__(self.__collection__, {'line_no': line_no})
+            print('self.data_frame: ', self.data_frame)
         else:
             self.data_frame = self.__load_frame__(self.__collection__)
 
         try:
+            print('self.data_frame: ', self.data_frame)
             self.data_frame = self.data_frame.sort_values(['line_no', 'seq'], ascending=[1, 1])  # ascending=True
         except KeyError:
             pass
@@ -58,6 +61,7 @@ class LineConfigMongodbReader(MongodbReader):
 
         header = header[0:header.rfind(',')]
         header_list = header.split(',')
+        print('header_list: ', header_list)
         return header_list   # trip,type,direction,stop|ƻ��԰|0103|0|1|A|1,trip,type,direction,stop|ƻ��԰|0103|0|1|D|2   index =1
 
     def get_ascending_stations(self):
@@ -122,13 +126,16 @@ class ScheduleMongodbReader(MongodbReader):
         self._line_no = line_no
         self._date = date
         self._type = plan_or_real.upper()
+        print('xxxx: ', self.__collections__.keys())
         if self._type not in self.__collections__.keys():
+
             raise ValueError('Invalid param of {}'.format(plan_or_real))
 
         self.data_frame = self.__load_frame__(self.__collections__[self._type], {'$and': [
             {'line_no': line_no},
             {'date': date}
         ]})
+        # print('self_data_frame: ', self.data_frame)
         self._load_header(line_no)
         self._get_data()
 
@@ -142,8 +149,11 @@ class ScheduleMongodbReader(MongodbReader):
 
     def to_redis(self):#����redis���ݿ�
         dfr = self.data_frame_result
+        print('dfr: ', dfr)
         #""":type dfr: pd.DataFrame"""
         data = dfr.to_json(orient='index')
+        print('data: ', data)
+        print('key: ', ScheduleCache.get_keys(self._line_no, self._date, self._type)[0])
         RedisCache.set_redis_data(ScheduleCache.get_keys(self._line_no, self._date, self._type)[0], data)#�����ݲ���redis��
 
     def to_csv(self):
@@ -152,9 +162,13 @@ class ScheduleMongodbReader(MongodbReader):
         self.data_frame_result.to_csv(file_path, index=False)
 
     def _load_header(self, line_no):
+        print('1111111')
         self._header_reader.load_frame(line_no)
+        print('22222222')
         self.header = self._header_reader.get_header_list()
         self.ordered_stn = self._header_reader.get_ascending_stations()
+        print('self.header: ', self.header)
+        print('self.ordered_stn: ', self.ordered_stn)
 
     def _get_data(self):
         # pool = ThreadPool(10)

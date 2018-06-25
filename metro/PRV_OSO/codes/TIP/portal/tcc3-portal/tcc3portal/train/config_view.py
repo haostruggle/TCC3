@@ -23,7 +23,7 @@ bp = Blueprint('config', __name__, url_prefix='/config')
 
 @bp.route('/', methods=['GET'])
 @login_required
-@admin_required
+# @admin_required
 def index():
     form = LineConfigForm()
     configs_lines_api_url = os.path.join(current_app.config['DAC_HOST_URL'],
@@ -58,7 +58,7 @@ def index():
 
 @bp.route('/upload_line', methods=['POST'])
 @login_required
-@admin_required
+# @admin_required
 def upload_line():
     file = request.files['config_file'] if 'config_file' in request.files else None
     if file:
@@ -67,7 +67,7 @@ def upload_line():
         # print(upload_url)
         headers = {"Content-type": "application/x-www-form-urlencoded",
                    "Accept": "text/plain"}
-        data = parse.urlencode({'file': file.read().decode('utf-8')})
+        data = parse.urlencode({'file': file.read().decode('gbk')})
 
         try:
             conn = HTTPConnection(current_app.config['DAC_HOST_URL'])

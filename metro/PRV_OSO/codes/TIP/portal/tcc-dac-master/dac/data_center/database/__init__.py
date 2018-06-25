@@ -88,7 +88,9 @@ class MongodbReader(object, metaclass=ABCMeta):
     def __load_frame__(self, collection, *args, **kwargs):
         """Load data frame, if no data Raise NoDataError"""
         _collection = self._db[collection]
+        print('_collection: ', _collection)
         ret = list(_collection.find(*args, **kwargs))
+        print('ret: ', ret)
         if ret is None or len(ret) == 0:
             raise NoDataError(collection, *args, **kwargs)
 

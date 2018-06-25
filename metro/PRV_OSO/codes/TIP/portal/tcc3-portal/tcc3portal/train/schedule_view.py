@@ -45,7 +45,6 @@ def upload():
             resp = conn.getresponse()
             if resp.code == 200:
                 resp_data = json.loads(resp.read().decode('utf-8'))
-                print(resp_data)
             else:
                 raise HTTPException()
 

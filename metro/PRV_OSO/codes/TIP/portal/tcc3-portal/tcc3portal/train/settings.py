@@ -7,7 +7,7 @@
     :copyright: (c) 2015 by Vito.
     :license: GNU, see LICENSE for more details.
 """
-from ..tcc_core.babel import _
+from tcc3portal.tcc_core.babel import _
 
 LINES = [
     ("01", _("L1")),
